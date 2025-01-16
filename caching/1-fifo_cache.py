@@ -2,7 +2,6 @@
 """ FIFO caching """
 from base_caching import BaseCaching
 
-
 class FIFOCache(BaseCaching):
     """ Class that inherits from BaseCaching and is a caching system """
 
@@ -41,4 +40,3 @@ class FIFOCache(BaseCaching):
         if key in self.cache_data:
             value = self.cache_data[key]
             return value
-            
