@@ -41,3 +41,4 @@ class FIFOCache(BaseCaching):
         if key in self.cache_data:
             value = self.cache_data[key]
             return value
+            
