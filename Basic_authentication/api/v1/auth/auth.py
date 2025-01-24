@@ -37,3 +37,4 @@ class Auth:
         """ def curent_user
         """
         return None
+        
