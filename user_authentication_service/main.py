@@ -1,14 +1,18 @@
 #!/usr/bin/env python3
-"""
-Main file
-"""
-from auth import Auth
+''' User model '''
 
-email = 'fofi@fo.com'
-password = 'MyPwdOfBob'
-auth = Auth()
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String
 
-auth.register_user(email, password)
+Base = declarative_base()
 
-print(auth.create_session(email))
-print(auth.create_session("unknown@email.com"))
+
+class User(Base):
+    ''' Class user '''
+    __tablename__ = 'users'
+
+    id = Column(Integer, primary_key=True)
+    email = Column(String(250), nullable=False)
+    hashed_password = Column(String(250), nullable=False)
+    session_id = Column(String(250), nullable=True)
+    reset_token = Column(String(250), nullable=True)
