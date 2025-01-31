@@ -10,7 +10,10 @@ from typing import Optional
 
 def _hash_password(password: str) -> str:
     """Hashes a password and returns it as a UTF-8 encoded string."""
-    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+    return bcrypt.hashpw(
+        password.encode('utf-8'),
+        bcrypt.gensalt()
+    ).decode('utf-8')
 
 
 def _generate_uuid() -> str:
@@ -39,7 +42,10 @@ class Auth:
         """Validates user credentials and returns a boolean."""
         try:
             user = self._db.find_user_by(email=email)
-            return bcrypt.checkpw(password.encode('utf-8'), user.hashed_password.encode('utf-8'))
+            return bcrypt.checkpw(
+                password.encode('utf-8'),
+                user.hashed_password.encode('utf-8')
+            )
         except NoResultFound:
             return False
 
@@ -82,7 +88,8 @@ class Auth:
         try:
             user = self._db.find_user_by(reset_token=reset_token)
             hashed_pwd = _hash_password(password)
-            self._db.update_user(user.id, hashed_password=hashed_pwd, reset_token=None)
+            self._db.update_user(
+                user.id, hashed_password=hashed_pwd, reset_token=None
+            )
         except NoResultFound:
             raise ValueError("Invalid reset token.")
-            
